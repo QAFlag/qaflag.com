@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "QA Flag",
-  tagline: "A modern TypeScript toolset for QA Automation",
+  tagline: "A modern QA toolset, built in native TypeScript",
   url: "https://www.qaflag.com",
   baseUrl: "/",
   onBrokenLinks: "throw",

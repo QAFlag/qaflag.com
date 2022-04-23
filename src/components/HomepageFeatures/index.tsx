@@ -11,7 +11,7 @@ type FeatureItem = {
 function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx("col col--4")}>
-      <div className="text--center">dsaf</div>
+      <div className="text--center">Foobar</div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
@@ -24,7 +24,9 @@ export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
-        <div className="row">What's up</div>
+        <div className="row">
+          This project is in early beta. Page under construction.
+        </div>
       </div>
     </section>
   );
