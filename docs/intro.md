@@ -16,9 +16,17 @@ You will also likely want to install our CLI tool, so that you can run the `qafl
 npm i -g @qaflag/cli
 ```
 
+Now that the CLI is installed, you will want to run the `init` command in the root directory of your project. This will create a qaflag.json file, with the default settings.
+
+```
+qaflag init
+```
+
 Your next step from here will depend on what type of testing you want to do. Install the appropriate packages based on your needs:
 
 - JSON API - @qaflag/json
 - HTML DOM - @qaflag/html
 - Full Browser Testing (with Playwright) - @qaflag/playwright
 - XML, SOAP, RSS, or ATOm - @qaflag/xml
+
+If you choose
