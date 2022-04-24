@@ -25,7 +25,7 @@ export default function HomepageFeatures(): JSX.Element {
     <section className={styles.features}>
       <div className="container">
         <div className="row">
-          This project is in early beta. Page under construction. Start with the{" "}
+          This project is in early beta. Page under construction. Start with the
           <a href="/docs/intro">Intro page</a> for now.
         </div>
       </div>

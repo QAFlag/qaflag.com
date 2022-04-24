@@ -11,7 +11,7 @@ Install the JSON library with this command:
 npm i --save-dev @qaflag/json
 ```
 
-Anywhere within your project, create a file in the pattern `*.suite.ts` and then build your application.
+Anywhere within your project source, create a file in the pattern `*.suite.ts`.
 
 Sample contents:
 
@@ -19,7 +19,8 @@ Sample contents:
 import { Scenario, Suite } from '@qaflag/core';
 import { JsonContext, JsonScenario } from '@qaflag/json';
 
-export class UsersSuite extends Suite(JsonScenario, {
+export class UsersSuite extends Suite({
+  type: JsonScenario,
   title: 'Test Users Endpoints',
 }) {
   @Scenario({
@@ -45,4 +46,16 @@ export class UsersSuite extends Suite(JsonScenario, {
     context.find('email').must.be.a.string();
   }
 }
+```
+
+Now build your test suites with the command:
+
+```
+qaflag build
+```
+
+And then run your tests
+
+```
+qaflag run
 ```
