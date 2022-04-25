@@ -1,26 +1,4 @@
----
-sidebar_position: 2
-label: "First Steps"
----
-
-# First Steps
-
-## Installing the CLI
-
-First, you will wnat to install the CLI globally. You only need to do this once on your machine, not once per project. Choose the appropriate command based on your package manager of choice.
-
-```bash
-// NPM
-npm i -g @qaflag/cli
-
-// Yarn
-yarn global add @qaflag/cli
-
-// PNPM
-pnpm add -g @qaflag/cli
-```
-
-## Initializing the Project
+# Initialize the Project
 
 Next, `cd` into the root directory of your project. This should be the folder where the `package.json` file lives. We need to initialize QA Flag on this project, by using the `init` command.
 

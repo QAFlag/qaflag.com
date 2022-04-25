@@ -1,37 +1,4 @@
----
-title: JSON
----
-
-# Getting Started with JSON Testing
-
-Anywhere within your project source, create a file in the pattern `*.suite.ts`, such as `example.suite.ts`. Now create the contents of the suite, for example:
-
-```typescript
-import { Suite, Scenario } from "@qaflag/core";
-import { JsonContext, JsonScenario } from "@qaflag/json";
-
-export class UsersSuite extends Suite({
-  type: JsonScenario,
-  title: "Test Users Endpoints",
-}) {
-  @Scenario({
-    uri: "GET https://jsonplaceholder.typicode.com/users",
-    statusCode: 200,
-  })
-  async getListOfUsers(context: JsonContext) {
-    const ids = context.find("[*].id");
-    ids.must.be.an.array();
-    ids.must.have.length.greaterThan(0);
-    ids.must.all.be.greaterThan(0);
-  }
-}
-```
-
-And then run your test:
-
-```bash
-qaflag run --build --all
-```
+# Examining the Code
 
 Let's break down what we did in each part of the code. The first part should be pretty self-explanatory, but we need to import the `Suite` and `Scenario` classes from core library. Then we will import the scenario and context classes that we need for our specific type of test, in this case that is JSON.
 

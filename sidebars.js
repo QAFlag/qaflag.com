@@ -20,13 +20,23 @@ const sidebars = {
       items: [
         {
           type: "doc",
-          id: "getting-started/first-steps",
-          label: "First Steps",
+          id: "getting-started/install",
+          label: "Install the CLI",
         },
         {
           type: "doc",
-          id: "getting-started/json",
-          label: "Setting up JSON",
+          id: "getting-started/init",
+          label: "Initialize the Project",
+        },
+        {
+          type: "doc",
+          id: "getting-started/first-test",
+          label: "Writing Our First Test",
+        },
+        {
+          type: "doc",
+          id: "getting-started/examining-the-code",
+          label: "Examining the Code",
         },
       ],
     },
