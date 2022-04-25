@@ -24,6 +24,9 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        docs: {
+          sidebarPath: require.resolve("./sidebars.js"),
+        },
       }),
     ],
   ],
