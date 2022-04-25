@@ -17,6 +17,7 @@ Your test suites can live in their own folder or right along side the rest of yo
 - Video streams
 - Images and visual diff comparisons
 - Webhooks
+- Android and iOS native applications (using Appium)
 
 ## Core Concepts and Terminology
 
