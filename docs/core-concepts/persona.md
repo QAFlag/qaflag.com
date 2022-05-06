@@ -99,3 +99,27 @@ export class AuthenticatedUser extends Persona(
 Similarly, there might be redundant things that you find you're doing over and over again in your scenarios. These tasks are better defined within the Persona, again using them as basically helper methods to cut down on duplication. But, beyond that, it helps you further think about a specific user completing a given task. This makes the code more readable, more maintainable, and allows your different personas to have a little different personality from others. Not all users follow the same path!
 
 For the signing in example, maybe one Persona tends to sign in by clicking each input box, typing, and then clicking the "Sign In" button. But another user may click on the first element, type, tab, type again, and then click the enter key. You can capture this with a custom `signIn` method for each persona.
+
+For another example, maybe in your tests you are often having the user navigate back to the home page. So, again, we de-duplicate this redundant task by putting it in the Persona rather than copy-pasting it all over the place. So this makes it more maintainable and readable. But also, we can capture this Persona's specific quirks by capturing thow they specifically do it.
+
+The first persona might click on the logo:
+
+```typescript
+  async goBackHome(context: PlaywrightContext) {
+    const logo = context.find('#logo');
+    logo.mouse.click();
+    return context.waitForNavigation();
+  }
+```
+
+Another persona might perform this same behavior by clicking on the "Home" link in the navigation bar:
+
+```typescript
+  async goBackHome(context: PlaywrightContext) {
+    const home = context.find("'Home'");
+    home.mouse.click();
+    return context.waitForNavigation();
+  }
+```
+
+Think of your persona as a real person and capture their personal attributes, device specificiations, actions, and behaviors.

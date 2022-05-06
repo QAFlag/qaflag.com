@@ -46,8 +46,13 @@ const sidebars = {
       items: [
         {
           type: "doc",
-          id: "core-concepts/personas",
-          label: "Personas",
+          id: "core-concepts/suite",
+          label: "Suite",
+        },
+        {
+          type: "doc",
+          id: "core-concepts/persona",
+          label: "Persona",
         },
       ],
     },
