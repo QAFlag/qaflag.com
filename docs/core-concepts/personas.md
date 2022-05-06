@@ -60,3 +60,42 @@ export class AuthenticatedUser extends Persona(
 ```
 
 The above example makes a call to our `/auth` endpoint with the given credentials. The resposne is handled by the method itself, and there we are applying some of the data that came back as our bearer token. All future requests using this persona will have that bearer token automatically applied. You can similarly set cookies, basic authentication, and any other request properties.
+
+In other situations, you may not want to do the authentication directly to the API though before your tests run. You may want to authenticate as part of your scenario. A great approach is to put that logic within the persona and call that method, kind of like you would a helper method, from your actual scenario.
+
+So you might define it like this for a Playwright/Browser test where we want click on the physical elements on the web site and type just like a user would:
+
+```typescript
+
+import {
+  Android,
+  Before,
+  HttpResponse,
+  Persona,
+  Phone,
+  Using,
+  WebBrowser,
+} from "@qaflag/core";
+
+export class AuthenticatedUser extends Persona(
+  "Authenticated User",
+  Using(Android, Phone),
+  WebBrowser("chrome")
+) {
+  async signIn(context: PlaywrightContext) {
+    const signInButton = context.find("'Sign In'");
+    const emailInput = context.find("'Email'");
+    const passwordInput = context.find("'Password'");
+    await emailInput.mouse.click();
+    await emailInput.keyboard.input('someone123@gmail.com');
+    await passwordInput.mouse.click();
+    await passwordInput.keyboard.input('foobar');
+    await signInButton.mouse.click();
+    return context.waitForNavigation();
+  }
+
+```
+
+Similarly, there might be redundant things that you find you're doing over and over again in your scenarios. These tasks are better defined within the Persona, again using them as basically helper methods to cut down on duplication. But, beyond that, it helps you further think about a specific user completing a given task. This makes the code more readable, more maintainable, and allows your different personas to have a little different personality from others. Not all users follow the same path!
+
+For the signing in example, maybe one Persona tends to sign in by clicking each input box, typing, and then clicking the "Sign In" button. But another user may click on the first element, type, tab, type again, and then click the enter key. You can capture this with a custom `signIn` method for each persona.
