@@ -40,6 +40,17 @@ const sidebars = {
         },
       ],
     },
+    {
+      type: "category",
+      label: "Core Concepts",
+      items: [
+        {
+          type: "doc",
+          id: "core-concepts/personas",
+          label: "Personas",
+        },
+      ],
+    },
   ],
 };
 
