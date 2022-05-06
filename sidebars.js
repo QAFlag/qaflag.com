@@ -51,6 +51,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "core-concepts/scenario",
+          label: "Scenario",
+        },
+        {
+          type: "doc",
           id: "core-concepts/persona",
           label: "Persona",
         },
