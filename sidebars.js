@@ -33,11 +33,6 @@ const sidebars = {
           id: "getting-started/first-test",
           label: "Writing Our First Test",
         },
-        {
-          type: "doc",
-          id: "getting-started/examining-the-code",
-          label: "Examining the Code",
-        },
       ],
     },
     {

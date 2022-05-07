@@ -1,6 +1,6 @@
 # Suite
 
-A suite is the basic building block that you will use to create your QA Flag automation. It is how you choose to group similar groups of tests together. There is no one right or wrong way to do this, it will all depend on what makes sense for your application. You may also mix and max these approaches. Common ways to group tests into suites include:
+A suite is the basic building block that you will use to create your QA Flag automation. You choose how to group similar groups of tests together. There is no one right or wrong way to do this; it all depends on what makes sense for your application. You may also mix and match these approaches. Common ways to group tests into suites include:
 
 - A suite for each endpoint or section of your site
 - Suites for certain actions like logging in or searching
@@ -17,15 +17,17 @@ export class MyFirstSuite extends Suite({
 }) {}
 ```
 
-We have define the suite with a relavant name and given it a title. However, this by itself will not accomplish anything meaningful. A suite really isn't worth anything until it contains one or more scenarios.
+We define the suite with a relavant class name and give it a title. However, this by itself will not accomplish anything meaningful. A suite isn't worth anything until it contains one or more scenarios.
 
-There is a whole section on scenarios though, so jump to that when you're ready.
+There is a separate section on [scenarios](/docs/core-concepts/scenario), so jump to that when you're ready.
 
 ## Properties
 
+### title
+
 `title` is the only required property. The rest of these are optional:
 
-### `type`
+### type
 
 The most common property you'll want to set for your suite (besides title) is `type`. It will almost certainly make your life easier to do this for each suite.
 
@@ -45,7 +47,7 @@ export class MyFirstSuite extends Suite({
 
 All of the scenarios within your suite will inherit this type by default, so then you don't need to define it on each scenario. If you do not define the scenario type in either the suite level or the scenario level, the scenario will fail to execute.
 
-### `baseUrl`
+### baseUrl
 
 Define the default base that all the URIs in your suite's scenarios will be based off of.
 
@@ -58,7 +60,7 @@ export class MyFirstSuite extends Suite({
 }) {}
 ```
 
-### `persona`
+### persona
 
 You may want to have all of the scenarios in your suite execute as a certain Persona. Or, at least, perhaps you want to have one as the default. You can always override it on the scenario level.
 
