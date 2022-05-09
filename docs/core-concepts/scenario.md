@@ -1,8 +1,8 @@
 # Scenario
 
-Now that you've [created your first suite](/docs/core-concepts/suite), it's time to add some scenarios. These are simply methods within the suite that are marked up with the `@Scenario` decorator.
+A [suite](/docs/core-concepts/suite) doesn't do any good without scenarios. A scenario is simply a method within the suite that is marked with the `@Scenario` decorator. You should group similar tests into scenarios that represent one user story or test path.
 
-The only required field for the `@Scenario()` arguments is the `uri` property. It must be in the form of `{method} {path}`, where `method` is a valid HTTP verb and path is either an absolute URL or a relative path. The `path` will be evaluated based on the `baseUrl`, which could be defined in the scenario argumnets, suite arguments, `QA_FLAG_DEFAULT_DOMAIN` environment variable, or QA Flag project argumnets.
+The only required field for the `@Scenario()` arguments is the `uri` property. It must be in the form of `{method} {path}`, where `method` is a valid HTTP verb and path is either an absolute URL or a relative path. The `path` will be evaluated based on the `baseUrl`, which could be defined in the scenario argumnets, suite arguments, `QAFLAG_BASE_URL` environment variable, or QA Flag project argumnets.
 
 ```typescript
    @Scenario({

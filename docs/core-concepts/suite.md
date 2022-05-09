@@ -49,7 +49,7 @@ All of the scenarios within your suite will inherit this type by default, so the
 
 ### baseUrl
 
-Define the default base that all the URIs in your suite's scenarios will be based off of.
+Define the default base that all the URIs in your suite's scenarios will be based off of. Most often, you don't need to specify this for the suite. There is a default Base URL that you set on the project level (in `qaflag.json`) and you can also set it as an environment variable as `QAFLAG_BASE_URL`. However, if you need to override those defaults for this suite, that's what this is for!
 
 ```typescript
 import { Suite } from "@qaflag/core";
@@ -113,11 +113,13 @@ The value can be any data type, it does not have to be a string (although it usu
 If there is some code that we want to execute before we start on any scenarios, we can define this as a method on our suite, with the `@Before` decorator. You can name the method itself anything you like. You can even define multiple befores if you like.
 
 ```typescript
-  @Before()
-  beforeAll() {
-    console.log('Before executing any scenarios.');
-  }
+@Before()
+beforeAll() {
+  console.log('Before executing any scenarios.');
+}
 ```
+
+While we are calling this method `beforeAll`, you can name it anything that is appropriate for what it does. The decorator is what determines that it runs first, not the name of the method.
 
 If you want to make an HTTP request at this point you can use the argument to `@Before` to define your request parameters, and then the argument to the method will receive the response.
 

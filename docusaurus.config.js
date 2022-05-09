@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "QA Flag",
-  tagline: "A modern QA toolset, built in native TypeScript",
+  tagline: "A modern QA toolset, built with TypeScript",
   url: "https://www.qaflag.com",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -68,7 +68,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Jason Byrne, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Jason Byrne. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
