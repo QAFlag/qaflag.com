@@ -25,9 +25,11 @@ export default function HomepageFeatures(): JSX.Element {
     <section className={styles.features}>
       <div className="container">
         <div className="row">
-          This project is in early beta. Page under construction.
-          <a href="/docs/intro" className="button">
-            Introduction
+          <p>This project is in early beta. Docs are under construction.</p>
+        </div>
+        <div className="row">
+          <a href="/docs/getting-started/intro" className="button">
+            Getting Started
           </a>
         </div>
       </div>

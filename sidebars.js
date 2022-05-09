@@ -5,19 +5,13 @@ const sidebars = {
   mySidebar: [
     {
       type: "category",
-      label: "Introduction",
+      label: "Getting Started",
       items: [
         {
           type: "doc",
-          id: "intro",
+          id: "getting-started/intro",
           label: "About QA Flag",
         },
-      ],
-    },
-    {
-      type: "category",
-      label: "Getting Started",
-      items: [
         {
           type: "doc",
           id: "getting-started/install",

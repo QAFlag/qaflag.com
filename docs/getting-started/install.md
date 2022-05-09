@@ -13,7 +13,13 @@ yarn global add @qaflag/cli
 pnpm add -g @qaflag/cli
 ```
 
-You can verify that it is installed and check which version, by typing:
+You should now be able to run the command and see available options:
+
+```bash
+qaflag --help
+```
+
+If you want to check what versino of the CLI is installed:
 
 ```bash
 qaflag --version

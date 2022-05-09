@@ -12,6 +12,8 @@
   --ifm-color-primary-light: #0003e0;
   --ifm-color-primary-lighter: #0003eb;
   --ifm-color-primary-lightest: #0a0eff;
+  --ifm-button-border-color: #00028f;
+  --ifm-button-color: #00028f;
 }
 
 [data-theme="dark"] {
@@ -33,4 +35,8 @@
 
 [data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.button {
+  margin-right: 1rem;
 }
