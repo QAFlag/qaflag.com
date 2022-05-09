@@ -24,6 +24,8 @@
   --ifm-color-primary-light: #c0c1f5;
   --ifm-color-primary-lighter: #d2d2f8;
   --ifm-color-primary-lightest: #ffffff;
+  --ifm-button-color: #fff;
+  --ifm-button-border-color: #fff;
 }
 
 .docusaurus-highlight-code-line {
