@@ -11,6 +11,19 @@ When you create a `Scenario` method you will almost always want to include the `
 
 Above we are doing a JSON scenario (testing a REST API), so we use `JsonContext`. But if we were doing a Playwright browser UX test, we'd use `PlaywrightContext` instead or if we were testing an RSS feed we'd do `RssContext`. You get the idea. This typing is crucial because, simply, we can do differnet things depending on the type of scenario and the content in its response.
 
+## Fatal Error
+
+If you need to interupt a scenario's execution, just use a standard `throw` statement. This will not only stop the current execution but also any further scenarios after the current step.
+
+```typescript
+  @Scenario({
+    uri: "GET /songs/humpty-dance",
+  })
+  getUser(context: PlaywrightContext) {
+      throw "Already stop what you're doing because i'm about to ruin the image and the style that you're used to.";
+  }
+```
+
 ## Standard Methods and Properties
 
 Since QA Flag supports a wide variety of scenario types, there is virtually nothing in context that universal for all scenario types. So you should consult the documentation for the one you're using (or just use intellisense to explore). However, there are a few standards.
