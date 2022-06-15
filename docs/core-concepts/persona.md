@@ -17,12 +17,13 @@ export class GuestUser extends Persona("Guest User") {}
 This user currently has no properties, other than its name (and the fact that it is not authenticated), so let's tell a define more about them.
 
 ```typescript
-import { Android, Persona, Phone, Using, WebBrowser } from "@qaflag/core";
+import { Android, Persona, Phone, Chrome } from "@qaflag/core";
 
 export class GuestUser extends Persona(
   "Guest User",
-  Using(Android, Phone),
-  WebBrowser("chrome")
+  Phone(),
+  Android(),
+  Chrome()
 ) {}
 ```
 
@@ -37,14 +38,14 @@ import {
   HttpResponse,
   Persona,
   Phone,
-  Using,
-  WebBrowser,
+  Chrome,
 } from "@qaflag/core";
 
 export class AuthenticatedUser extends Persona(
   "Authenticated User",
-  Using(Android, Phone),
-  WebBrowser("chrome")
+  Phone(),
+  Android(),
+  Chrome()
 ) {
   @Before({
     uri: "POST /auth",
@@ -73,14 +74,14 @@ import {
   HttpResponse,
   Persona,
   Phone,
-  Using,
-  WebBrowser,
+  Chrome,
 } from "@qaflag/core";
 
 export class AuthenticatedUser extends Persona(
   "Authenticated User",
-  Using(Android, Phone),
-  WebBrowser("chrome")
+  Phone(),
+  Android(),
+  Chrome()
 ) {
   async signIn(context: PlaywrightContext) {
     const signInButton = context.find("'Sign In'");
