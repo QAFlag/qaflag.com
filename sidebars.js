@@ -50,6 +50,17 @@ const sidebars = {
         },
       ],
     },
+    {
+      type: "category",
+      label: "JSON",
+      items: [
+        {
+          type: "doc",
+          id: "json/find",
+          label: "Find",
+        },
+      ],
+    },
   ],
 };
 
