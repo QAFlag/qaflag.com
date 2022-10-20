@@ -1,6 +1,6 @@
 # Assert a Schema
 
-Rather than making a bunch of individual assertions against a response body, we can define the schema of the response and assert it all at once. We have several methods available for this.
+Rather than making a bunch of individual assertions against the response body, we can define the schema of the response and assert it all at once. We have three types of schema definitions to choose from.
 
 For these examples, let's assume the JSON response body:
 
@@ -13,7 +13,7 @@ For these examples, let's assume the JSON response body:
 
 ## DTO with Class Validator
 
-The easitest way to do this is with the popular [class-validator](https://www.npmjs.com/package/class-validator) library. We can define a DTO (or "Data Transfer Object") by defining a class with decorators.
+The easiest way to do this is with the popular [class-validator](https://www.npmjs.com/package/class-validator) library. We can define a DTO (or "Data Transfer Object") by defining a class with decorators.
 
 For example, let's define your DTO as a file called `school.dto.ts`
 
@@ -47,10 +47,10 @@ That's it. Without any assertions inside the method, we automatically validate t
 
 For more details about the syntax see: [https://www.npmjs.com/package/class-validator]
 
-## AJV
+## JTD
 
 .... Coming ...
 
-## JTD
+## JSONSchema
 
 ... Coming ...

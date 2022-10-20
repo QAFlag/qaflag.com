@@ -52,6 +52,47 @@ const sidebars = {
     },
     {
       type: "category",
+      label: "CLI",
+      items: [
+        {
+          type: "doc",
+          id: "cli/init",
+          label: "Initialize Project",
+        },
+        {
+          type: "doc",
+          id: "cli/generate-suite",
+          label: "Generate New Suite",
+        },
+        {
+          type: "doc",
+          id: "cli/generate-persona",
+          label: "Generate New Persona",
+        },
+        {
+          type: "doc",
+          id: "cli/list",
+          label: "List Suites",
+        },
+        {
+          type: "doc",
+          id: "cli/plan",
+          label: "Show Test Plan",
+        },
+        {
+          type: "doc",
+          id: "cli/build",
+          label: "Build",
+        },
+        {
+          type: "doc",
+          id: "cli/run",
+          label: "Run Suites",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "JSON",
       items: [
         {
