@@ -48,6 +48,11 @@ const sidebars = {
           id: "core-concepts/persona",
           label: "Persona",
         },
+        {
+          type: "doc",
+          id: "core-concepts/template",
+          label: "Template",
+        },
       ],
     },
     {
