@@ -53,4 +53,4 @@ async listSchools(context: JsonContext) {
 }
 ```
 
-The query library that we use here is called [JMESPath](https://jmespath.org/). It is extremely powerful, far beyond these simple examples. See its documentation at [https://jmespath.org/] for more.
+The query library that we use here is called [JMESPath](https://jmespath.org/). It is extremely powerful, far beyond these simple examples. See its documentation at <https://jmespath.org/> for more.
