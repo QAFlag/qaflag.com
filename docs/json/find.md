@@ -1,4 +1,4 @@
-# Using Find
+# Using Find with JSON
 
 The first thing you'll want to do with a JSON test is query for content within the response body and make assertions against it. For this we'll use the `find` method. For example, let's say we have a response body like this:
 

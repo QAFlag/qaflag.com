@@ -126,6 +126,11 @@ const sidebars = {
           id: "playwright/playwright-intro",
           label: "Testing with Playwright",
         },
+        {
+          type: "doc",
+          id: "playwright/find",
+          label: "Selecting Page Elements",
+        },
       ],
     },
   ],
