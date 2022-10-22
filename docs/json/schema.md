@@ -55,7 +55,7 @@ We use a '@nameOfSchema` syntax that allows us to generate a "control" version o
 
 The documentation here is not complete... more to come to better explain the details.
 
-## JSON Type Definition (JTD)
+### JSON Type Definition (JTD)
 
 QA Flag can support schemas in [JSON Type Definition (or "JTD") format](https://jsontypedef.com/)
 
@@ -81,7 +81,7 @@ async getOneSchool(context: JsonContext) {}
 
 <https://jsontypedef.com/>
 
-## JSON Schema
+### JSON Schema
 
 QA Flag can support schemas in [JSON Schema format](https://json-schema.org/)
 

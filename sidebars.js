@@ -102,6 +102,11 @@ const sidebars = {
       items: [
         {
           type: "doc",
+          id: "json/json-intro",
+          label: "Testing a JSON API",
+        },
+        {
+          type: "doc",
           id: "json/find",
           label: "Find",
         },
@@ -109,6 +114,17 @@ const sidebars = {
           type: "doc",
           id: "json/schema",
           label: "Asserting a Schema",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Browser",
+      items: [
+        {
+          type: "doc",
+          id: "playwright/playwright-intro",
+          label: "Testing with Playwright",
         },
       ],
     },
