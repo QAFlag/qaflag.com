@@ -18,15 +18,16 @@ export class GoogleSearch extends Suite({
   })
   async queryForJasonByrneGithub(context: PlaywrightContext) {
     const searchTerm = "Jason Byrne Github";
-    const button = await context.visible("'Google Search'");
-    const textbox = await context.exists("[aria-label='Search']");
+    const button = await context.find("'Google Search'");
+    const textbox = await context.find("[aria-label='Search']");
+    await textbox.must.be.visible();
     await button.must.be.visible();
     await textbox.keyboard.input(searchTerm);
     await button.mouse.click();
     await context.waitForNavigation();
     await context.exists("'Jason Byrne jasonbyrne - GitHub'");
-    const value = await textbox.value();
-    value.must.equal(searchTerm);
+    const searchValue = await textbox.value();
+    searchValue.must.equal(searchTerm);
   }
 }
 ```
