@@ -117,6 +117,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "json/authentication",
+          label: "Authentication",
+        },
+        {
+          type: "doc",
           id: "json/schema",
           label: "Asserting a Schema",
         },

@@ -1,8 +1,8 @@
-# Submitting Data Payloads with JSON Requsts
+# Submitting Data Payloads
 
 When you are testing `POST`, `PATCH`, or `PUT` endpoints, you will most likely want to add a payload along with the request. This is extremely simple. Just use the `data` property.
 
-The example below will submit the payload as JSON encoded and autoamtically set the approprate `Content-Type` header as `application/json`
+The example below will submit the payload as JSON encoded and automatically set the approprate `Content-Type` header as `application/json`
 
 ```typescript
 import { Scenario, Suite } from "@qaflag/core";
