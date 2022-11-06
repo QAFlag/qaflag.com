@@ -1,4 +1,4 @@
-# Use Steps for Sequential Tests
+# Steps
 
 If your suite has multiple scenarios, very often thre will be a certain orer you want to execute them in. When you do not explicitly assign a `step` to a scenario, QA Flag will by default be assigned to step 1. It fires of all scenarios in the same step asynchronously (all at once).
 
