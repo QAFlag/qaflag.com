@@ -55,6 +55,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "core-concepts/tests",
+          label: "Tests and Assertions",
+        },
+        {
+          type: "doc",
           id: "core-concepts/persona",
           label: "Persona",
         },
