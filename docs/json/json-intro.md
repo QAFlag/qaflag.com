@@ -2,7 +2,7 @@
 
 This is the best place to start your automated journey. Your JSON and RESTful APIs have predictable inputs and outputs and are really easy to to begin automating.
 
-Here is a basic example:
+Here is a basic example with GET:
 
 ```typescript
 import { Scenario, Suite } from "@qaflag/core";

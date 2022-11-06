@@ -112,6 +112,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "json/data-payload",
+          label: "Sending a Payload",
+        },
+        {
+          type: "doc",
           id: "json/schema",
           label: "Asserting a Schema",
         },
