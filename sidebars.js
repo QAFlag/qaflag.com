@@ -45,6 +45,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "core-concepts/step",
+          label: "Step",
+        },
+        {
+          type: "doc",
           id: "core-concepts/persona",
           label: "Persona",
         },

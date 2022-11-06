@@ -20,35 +20,3 @@ This method alone, with no actual content is a valid scenario. It will load the 
   })
   foo() {}
 ```
-
-## Assigning Scenario to a Step
-
-If your suite has multiple scenarios, very often thre will be some dependencies between them. For example, first you might want to create a new user, and after that you will want to verify that you can fetch that user. We control this order of execution and dependencies by assigning scenarios to a step.
-
-By default all scenarios execute together in step 1, but you can assign a method to a different step within the `@Scenario` decorator.
-
-```typescript
-   @Scenario({
-    uri: "POST /users",
-    statusCode: 201,
-    step: 1
-  })
-  createUser(context: JsonContext) {
-    this.set('userId', context.find('id').$);
-  }
-
-  @Scenario({
-    uri: "GET /users/{userId}",
-    statusCode: 200,
-    step: 2
-  })
-  getUser() {}
-```
-
-Notice above that not only did we assign `getUser` to step 2, but we also have the `{userId}` parameter in the URL path. This is a very common pattern, where don't know the full path until a previous step completes. So how does it get filled in? With the `set` method!
-
-Because we assigned `getUser` to step 2 it will wait for `createUser` to complete. When QA Flag goes to execute `getUser`, it sees the parameter placeholder and sees if we've set the value yet. We have, so it will automatically replace it before executing.
-
-If you were wondering about the `.$` part, that's just how we grab the inner value from the value wrapper that comes back with a `find` selector.
-
-... more to come ...

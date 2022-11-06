@@ -50,9 +50,6 @@ Here is an example of a Persona that will authenticate and then set the bearer t
 ```typescript
 import {
   Persona,
-  Windows,
-  Laptop,
-  Chrome,
   Before,
   HttpResponse,
 } from "@qaflag/core";
