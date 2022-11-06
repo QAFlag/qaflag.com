@@ -25,7 +25,10 @@ export default function HomepageFeatures(): JSX.Element {
     <section className={styles.features}>
       <div className="container">
         <div className="row">
-          <p>This project is in early beta. Docs are under construction.</p>
+          <p>
+            QA Flag is the most intuitive framework for test automation. Give it
+            a try. <em>Beta</em>
+          </p>
         </div>
         <div className="row">
           <a href="/docs/getting-started/intro" className="button">
