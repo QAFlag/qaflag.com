@@ -87,7 +87,7 @@ Documentation to come...
 - near(selector, distance?)
 - rightOf(selector)
 
-# Location on the page
+## Location on the page
 
 Pair these with a proximity helper to determine where on the page to look for the element.
 
@@ -112,44 +112,180 @@ Optionally, with `near`, we can specify how far away it's allowed to be (in pixe
 context.find(image, near(topLeft, 120));
 ```
 
-# Type of element
+## Type of element
 
 We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
 
 More documentation to come...
 
+- banner
 - bold
 - button
+- checkbox
+- dialog
 - dropdown
 - field
 - header
 - heading
+- image
 - link
 - main
 - nav
+- radio
 - textbox
 
-# State of an element
+## State of an element
 
 - disabled
 - enabled
 - hidden
 - visible
 
-# Relationship to other selectors
+## Relationship to other selectors
 
 - parent(selector)
+- previousSibling(selector)
+- sibling(selector)
 - within(selector)
 
-# Position in matched results
+## Position in matched results
 
 - first
 - last
 - nth(n)
 
+## Filter by attribute
+
+You can filter your query to elements with a certain attribute in a few ways. You are free to use the traditional CSS selectors, like:
+
+```typescript
+context.find('img[src="foobar.png"]');
+```
+
+Or even use xpath like:
+
+```typescript
+context.find('//img[@src = "foobar.png"]');
+```
+
+But with `find` we've added some other shorthand options that you'll likely find preferable.
+
+```typescript
+context.find("img@src=foobar.png");
+context.find('img@src="foobar.png"');
+context.find("img@src==foobar.png");
+context.find("img@src=='foobar.png'");
+```
+
+All of the above examples are an exact match. In other words, the value of `src` has to be exactly `foobar.png`.
+
+### Without the tag
+
+You can select for an attribute and value pair only, without narrowing it to a tag. All of the examples in this section will work without it.
+
+```typescript
+context.find("@title='Some Value'");
+```
+
+## Without the value
+
+You can also drop the value part and only look for a tag that has a certain attribute.
+
+```typescript
+context.find("input@readonly");
+```
+
+## Without the tag or the value
+
+Or you can just search for any element with a certain attribute, regardless of tag or value.
+
+```typescript
+context.find("@contenteditable");
+```
+
+### Attribute Value Contains (\*=)
+
+Attribute value contains this text. These are all equivalent.
+
+```typescript
+context.find("img@src=*foobar*");
+context.find("img@src*=foobar");
+context.find("img@src*='foobar'");
+```
+
+You see with the first example, you can use a standard `=` single equality and then surround your string with `*` wildcards. Or you can use the '\*=` equality, followed by your value. The value can be quoted but doesn't need to be. The behavior does not change.
+
+### Attribute Value Starts With (^=)
+
+Attribute value starts with this text. These are all equivalent.
+
+```typescript
+context.find("img@src^=foobar");
+```
+
+### Attribute Value Ends With ($=)
+
+Attribute value ends with this text. These are all equivalent.
+
+```typescript
+context.find("img@src$=foobar");
+context.find("img@src$='foobar'");
+```
+
+### Attribute Value Contains Word (~=)
+
+This one looks for a word (spaces around it) that matches the value. These are all equivalent.
+
+```typescript
+context.find("input@placeholder~=foobar");
+context.find("input@placeholder~='foobar'");
+```
+
+### The |= selector
+
+This one is a little different. It looks for a word (spaces around it) that matches the value. These are all equivalent.
+
+```typescript
+context.find("input@placeholder~=foobar");
+context.find("input@placeholder~='foobar'");
+```
+
+# Attribute Helpers
+
+You can use the selector string to find attributes, but we've also added a few helper methods if you prefer.
+
+- alt(value)
+- ariaLabel(value)
+- href(value)
+- id(elementId)
+- placeholder(value)
+- role(roleName)
+- src(value)
+- title(value)
+
+Examples:
+
+```typescript
+context.find(image, alt("Some text"));
+context.find(title("some title"));
+context.find(role("button"));
+```
+
+There is generally no reason to use this other than the string selector, unless you think it reads better. However, the `role` method does constrain the possible role values to only legal ones as defined by the specifications.
+
+It is not recommended to construct tests using the `id` selector, however, if you do these are equivalent.
+
+```typescript
+context.find(id("myElement"));
+context.find("#myElement");
+```
+
 # Other filters
 
+- and(selector)
 - empty
 - firstChild
+- has(selector)
 - lastChild
+- not(selector)
 - only
