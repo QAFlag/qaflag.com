@@ -2,7 +2,9 @@
 
 Using the [locator](/docs/playwright/locator) method is perfectly fine, but we can do better. The `find` method is its cousin and performs the same task; however, it wraps additional querying enhancements that can make writing selectors substantially more intuitive and easier to read.
 
-Firstly you can do anything with `find` that you can do with locator. These will yield identical results:
+Everything you learend from the [locator](/docs/playwright/locator) section still works here, because both return a `PlaywrightValue`. And you can pass any selector that you'd use with `locator` to `find` as well.
+
+These will yield identical results:
 
 ```typescript
 const resultsFromLocator = context.locator("table");
@@ -187,7 +189,7 @@ You can select for an attribute and value pair only, without narrowing it to a t
 context.find("@title='Some Value'");
 ```
 
-## Without the value
+### Without the value
 
 You can also drop the value part and only look for a tag that has a certain attribute.
 
@@ -195,7 +197,7 @@ You can also drop the value part and only look for a tag that has a certain attr
 context.find("input@readonly");
 ```
 
-## Without the tag or the value
+### Without the tag or the value
 
 Or you can just search for any element with a certain attribute, regardless of tag or value.
 
@@ -250,7 +252,7 @@ context.find("input@placeholder~=foobar");
 context.find("input@placeholder~='foobar'");
 ```
 
-# Attribute Helpers
+### Attribute Helpers
 
 You can use the selector string to find attributes, but we've also added a few helper methods if you prefer.
 
