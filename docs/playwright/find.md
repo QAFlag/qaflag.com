@@ -79,17 +79,45 @@ context.find(":text-matches('/hello world/', 'i')");
 
 While all of the above are identical, the first one of each group is the recommened best practice.
 
-## Proximity
+## Proximity Filters
 
-Documentation to come...
+Encourage selectors that "think like a human." Users do not think in terms of elements and classes. They look for certain visual cues and locations within the page. If they're filling out a form they're looking for the textbox by the "First Name" label to start typing. These proximity filters help you do that.
 
-- above(selector)
-- below(selector)
-- leftOf(selector)
-- near(selector, distance?)
-- rightOf(selector)
+### Close by
 
-## Location on the page
+#### near(selector, distance?)
+
+...
+
+```typescript
+context.find("input", near("'First Name'"));
+```
+
+Optionally, with near, you can specify a max distance that determines "how near is near"? This second argument is in pixels.
+
+```typescript
+context.find("input", near("'First Name'"), 10);
+```
+
+### Directional
+
+#### above(selector)
+
+...
+
+#### below(selector)
+
+..
+
+#### leftOf(selector)
+
+...
+
+#### rightOf(selector)
+
+...
+
+### Location on the Page
 
 Pair these with a proximity helper to determine where on the page to look for the element.
 
