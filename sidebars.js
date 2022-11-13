@@ -153,8 +153,13 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "playwright/locator",
+          label: "Querying with Locator",
+        },
+        {
+          type: "doc",
           id: "playwright/find",
-          label: "Selecting Page Elements",
+          label: "Querying with Find",
         },
       ],
     },

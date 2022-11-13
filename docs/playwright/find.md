@@ -1,117 +1,155 @@
-# Using Find with Playwright
+# Querying with Find
 
-The `context.find` method in a `PlaywrightScenario` uses the Playwright's [page.locator](https://playwright.dev/docs/api/class-page#page-locator) under the hood. It provides a very powerful way to query for an element on the page with various types of [selectors](https://playwright.dev/docs/selectors).
+Using the [locator](/docs/playwright/locator) method is perfectly fine, but we can do better. The `find` method is its cousin and performs the same task; however, it wraps additional querying enhancements that can make writing selectors substantially more intuitive and easier to read.
 
-Here is a basic example, using a CSS selector to pick a text box named password:
-
-```typescript
-const passwordInput = context.find('input[name="password"]');
-```
-
-Supported selectors include
-
-- [Simple Text](https://playwright.dev/docs/selectors#text-selector) - `context.find('"Hello World"')`
-- [CSS](https://playwright.dev/docs/selectors#css-selector) - `context.find('h1.main')`
-- [XPath](https://playwright.dev/docs/selectors#xpath-selectors) - `context.find('xpath=//button')`
-- [React](https://playwright.dev/docs/selectors#react-selectors)
-- [Vue](https://playwright.dev/docs/selectors#vue-selectors)
-
-You do not need to `await` the find method. You can select them before the element is rendered. It will return a `PlaywrightValue` object, which contains a reference to the locator. This can be used later to grab for that element to do something with it (like click it), query against its children, or make assertions about it.
-
-Example:
+Firstly you can do anything with `find` that you can do with locator. These will yield identical results:
 
 ```typescript
-const searchInput = context.find('input[name="search_term"]');
-const submitButton = context.find('button[type="submit"]);
-await searchInput.must.be.visible();
-await searchInput.keyboard.input('My Search Term');
-await submitButton.must.be.enabled();
-await submitButton.mouse.click();
+const resultsFromLocator = context.locator("table");
+const resultsFromFind = context.find("table");
 ```
 
-Notice above that we created the locators with `find`, without awaiting them. But then we used `await` when we made assertions against them or took an action on them. Think about it like any time we go to the browser to ask it to do something, we need to wait for that to happen. But simply creating a pointer toward a certain selector, we aren't asking the browser to do anything.
-
-## Renaming elements with "as"
-
-You build the assertion messages in a declarative way with QA Flag, using human-readable grammar with `must`. However, the elements themselves need a name. If you don't explicitly name them, QA Flag will use its best effor to do so... usually just calling it the selector.
-
-If you want your assertion messages to be easier to read, give them a name with `as` like this:
+And so will these:
 
 ```typescript
-const logo = context.find("main > h1 img").as("Site Logo");
-const submitButton = context.find('button[type="submit"]').as("Search Button");
+const resultsFromLocator = context.locator("'Hello World'");
+const resultsFromFind = context.find("'Hello World''");
 ```
 
-## exists and visible
-
-Many times you want to select an element with `find` and then immediately assert that it exists or is visible. Like this:
+But find will let you do things like chain
 
 ```typescript
-const submitButton = context.find('button[type="submit"]);
-await submitButton.must.be.visible();
+// Don't do this
+const resultsFromLocator = context.locator("label >> text='First Name'");
+// Do this instead
+const resultsFromFind = context.find("label", "'First Name''");
 ```
 
-We can save ourselves the extra line of code by using `context.visible`:
+Besides justing being a little bit shorter, the above example also provides much better auto-naming of the selected elements. The first one will have its name be the same as the selector. The second one will be named more human-readable as `Label with "First Name"`.
+
+You can chain as many additional sub-selectors on to the end as you want, but the real power comes in by adding some of QA Flag's helper methods along with it. For example:
 
 ```typescript
-const submitButton = await context.visible('button[type="submit"]');
+const firstNameInput = context.find(textbox, below("'First Name'"));
 ```
 
-Or with `context.exists`
+"What kind of wizardry is this??", you ask. To use the above we'll simply `import` the `below` and `textbox` helpers from `@qaflag/playwright` like you would any other import. Your IDE should auto-complete this for you to add the imports, but the top of your file will say something like:
 
 ```typescript
-const searchInput = await context.exists('input[name="search_term"]');
+import {
+  PlaywrightContext,
+  PlaywrightScenario,
+  textbox,
+  below,
+} from "@qaflag/playwright";
 ```
 
-You do need to `await` these since they are going to the browser to check the assertion.
+The goal should not be to teach our Automation Engineers to be able to write complicated Playwright selectors with Xpath or CSS. The goal, instead, should be able to describe what we are looking for as close to how a human would look at the page as possible.
 
-If you want to rename the element with `as` you can use this alternate syntax:
+## Querying for text
+
+One of the most powerful things (and a best practice) is to search for things with certain text in them. This scans the page just like a user would. We can do this a few different ways. All of these are identical:
 
 ```typescript
-const searchInput = await context.exists(
-  context.find('input[name="search_term"]').as("Search Input")
-);
+context.find("'Hello World'");
+context.find(text("Hello World"));
+context.find("text='Hello World'");
+context.find(":text-is('Hello World')");
 ```
 
-## Matching multiple elements
-
-It's important to note that the selector you passed to`find` may have returned multiple matches. So think of it like an array of matches. When you take an action, query children, or make an assertion it will do it against the first match... unless you specifically tell it otherwise.
-
-Let's talk about ways to do that. We'll use this example:
+All three of those queries will look for an element containing _exactly_ the string "Hello World", with any whitespace trimmed. So that means if your element has `"Hello World!"` in it, then it will not match. If you want a more fuzzy match, any of these will work and are identical:
 
 ```typescript
-const listItems = context.find("li");
+context.find("*Hello World*");
+context.find(contains("Hello World"));
+context.find("text=Hello World");
+context.find(":has-text('Hello World')");
 ```
 
-### Count the matches
-
-If you want to know how many matched, use `count()` to give you a new `NumberValue` with that result. This must be awaited since we must go to the browser to look it up.
+Lastly, you can also use a regular expression if you're feeling saucy.
 
 ```typescript
-const itemCount = await listItems.count();
+context.find(/hello world/i);
+context.find(matches("/hello world/i"));
+context.find("text=/hello world/i");
+context.find(":text-matches('/hello world/', 'i')");
 ```
 
-### Getting the first, last, or nth item
+While all of the above are identical, the first one of each group is the recommened best practice.
 
-Maybe you want to select only one of the items. Easy!
+## Proximity
+
+Documentation to come...
+
+- above(selector)
+- below(selector)
+- leftOf(selector)
+- near(selector, distance?)
+- rightOf(selector)
+
+# Location on the page
+
+Pair these with a proximity helper to determine where on the page to look for the element.
+
+- top
+- bottom
+- left
+- right
+- topLeft
+- topRight
+- bottomLeft
+- bottomRight
+
+For example:
 
 ```typescript
-const firstItem = listItems.first;
-const lastItem = listItems.last;
-const fifthItem = listItems.nth(4); // Zero-based
+context.find(image, near(topLeft));
 ```
 
-This does not need to be awaited because it is just returning another locator. You don't necessarily need to save them to their own `const`. You can simply assert against them directly like this.
+Optionally, with `near`, we can specify how far away it's allowed to be (in pixels). The default is 50.
 
 ```typescript
-await listItems.first.must.be.visible();
+context.find(image, near(topLeft, 120));
 ```
 
-### Searching for children
+# Type of element
 
-You can also select an element with `find` and then use `find` on it to query within its children. For example:
+We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
 
-```typescript
-const form = context.find("form.search");
-const checkboxes = form.find('input[type="checkbox"]');
-```
+More documentation to come...
+
+- bold
+- button
+- dropdown
+- field
+- header
+- heading
+- link
+- main
+- nav
+- textbox
+
+# State of an element
+
+- disabled
+- enabled
+- hidden
+- visible
+
+# Relationship to other selectors
+
+- parent(selector)
+- within(selector)
+
+# Position in matched results
+
+- first
+- last
+- nth(n)
+
+# Other filters
+
+- empty
+- firstChild
+- lastChild
+- only
