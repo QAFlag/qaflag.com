@@ -87,11 +87,11 @@ In order for this type of element selection to work, you should focus on creatin
 
 QA Flag does make some additional efforts to grab these elements based on common CSS frameworks and other practices of how you might name elements, attributes, or classes. However, for best results: stick with the standards of semantic web and accessibility!
 
-_More documentation to come..._
+More documentation to come...
 
 - banner = Top section of the site with the logo and masthead
 - bold = Large text such as headings, bold, or strong
-- button = Elements resembling a button like `<button>`, `<input type="submit">`, `role="button"` </a>or `class="btn"`
+- button = Elements resembling a button like `<button>`, `<input type="submit">`, `role="button"` or `class="btn"`
 - checkbox = Checkbox elements like `<input type="checkbox">`
 - dialog = Modals and dialog boxes, including native ones and those of popular frameworks
 - dropdown = Dropdown components like the native `<select>`
