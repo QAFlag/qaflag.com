@@ -79,6 +79,40 @@ context.find(":text-matches('/hello world/', 'i')");
 
 While all of the above are identical, the first one of each group is the recommened best practice.
 
+## Type of element
+
+We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
+
+In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. Additional or instead of this, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
+
+QA Flag does make some additional efforts to grab these elements based on common CSS frameworks and other practices of how you might name elements, attributes, or classes. However, for best results: stick with the standards of semantic web and accessibility!
+
+_More documentation to come..._
+
+- banner = Top section of the site with the logo and masthead
+- bold = Large text such as headings, bold, or strong
+- button = Elements resembling a button like `<button>`, `<input type="submit">`, `role="button"` </a>or `class="btn"`
+- checkbox = Checkbox elements like `<input type="checkbox">`
+- dialog = Modals and dialog boxes, including native ones and those of popular frameworks
+- dropdown = Dropdown components like the native `<select>`
+- field = Any standard form field with `<input>` or `<select>`, but not buttons of any `type="hidden"`
+- header = A header section of the site, not just the main top-level one (which is the "banner"). This includes the `<header>` tag.
+- heading = A text heading like `<h1>`, `<h2>`, etc.
+- image = Any image type item including `<img>`, `<picture>`, or `<svg>`. This will not grab things with a CSS background image.
+- link = Any type of link with `<a>` but also other link-like elements
+- main = Main section of the site. Includes `<main>` and `role="main"`
+- nav = Main navigation of the site. Includes `<nav>` and `role="navigation"`
+- radio = Radio buttons with `<input type="radio">`
+- textbox = Any `<input>` that allows you to type (text, search, tel, url, etc) in it or a `<textarea>`
+
+Examples:
+
+```typescript
+context.find(textbox, under("'First Name'"));
+context.find("a", within(nav));
+context.find(image, within(header));
+```
+
 ## Proximity Filters
 
 Encourage selectors that "think like a human." Users do not think in terms of elements and classes. They look for certain visual cues and locations within the page. If they're filling out a form they're looking for the textbox by the "First Name" label to start typing. These proximity filters help you do that.
@@ -87,7 +121,7 @@ Encourage selectors that "think like a human." Users do not think in terms of el
 
 #### near(selector, distance?)
 
-...
+Identify an element by what it is close to with `near`.
 
 ```typescript
 context.find("input", near("'First Name'"));
@@ -101,21 +135,33 @@ context.find("input", near("'First Name'"), 10);
 
 ### Directional
 
+Sometimes `near` can yield undesirable results because it will pick up something else adjacent and not the element you intend to select. So it helps to be able to pick something within a certain direction.
+
+These directional helpers will grab all matching elements in that direction, without any limtiation of how close. That may be something we can add in the future, but for now it's not a thing. Fortunately, it will sort the closest items first. Typically this will give you the element you're after or else you need to tighten it with additional filters.
+
 #### above(selector)
 
-...
+```typescript
+context.find(image, above("'My Picture Caption"));
+```
 
 #### below(selector)
 
-..
+```typescript
+context.find(textbox, below("'Email Address'"));
+```
 
 #### leftOf(selector)
 
-...
+```typescript
+context.find(image, leftOf("a.logo"));
+```
 
 #### rightOf(selector)
 
-...
+```typescript
+context.find(link, leftOf("article"));
+```
 
 ### Location on the Page
 
@@ -140,36 +186,6 @@ Optionally, with `near`, we can specify how far away it's allowed to be (in pixe
 
 ```typescript
 context.find(image, near(topLeft, 120));
-```
-
-## Type of element
-
-We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
-
-More documentation to come...
-
-- banner
-- bold
-- button
-- checkbox
-- dialog
-- dropdown
-- field
-- header
-- heading
-- image
-- link
-- main
-- nav
-- radio
-- textbox
-
-Examples:
-
-```typescript
-context.find(textbox, under("'First Name'"));
-context.find("a", within(nav));
-context.find(image, within(header));
 ```
 
 ## State of an element
