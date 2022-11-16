@@ -27,6 +27,11 @@ const sidebars = {
           id: "getting-started/first-test",
           label: "Writing Our First Test",
         },
+        {
+          type: "doc",
+          id: "getting-started/test-structure",
+          label: "Test Structure",
+        },
       ],
     },
     {

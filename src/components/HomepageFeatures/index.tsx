@@ -27,7 +27,7 @@ export default function HomepageFeatures(): JSX.Element {
         <div className="row">
           <p>
             QA Flag is the most intuitive framework for test automation. Give it
-            a try. <em>Beta</em>
+            a try.
           </p>
         </div>
         <div className="row">
