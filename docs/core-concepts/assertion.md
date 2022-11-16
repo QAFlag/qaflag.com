@@ -1,4 +1,4 @@
-# Tests and Assertions
+# Assertions
 
 Assertions are made declaratively. You build out a human-readable test and that becomes your assertion.
 
