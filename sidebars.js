@@ -145,6 +145,11 @@ const sidebars = {
           id: "json/schema",
           label: "Asserting a Schema",
         },
+        {
+          type: "doc",
+          id: "json/array-assertions",
+          label: "Array Assertions",
+        },
       ],
     },
     {
