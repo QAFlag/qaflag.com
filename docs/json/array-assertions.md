@@ -89,7 +89,21 @@ ids.must.have.some.be.an.evenInteger();
 The `some` and `any` statements do the same thing. Use the one that is grammatically better.
 
 ```typescript
-ids.must.not.have.any.be.nan();
+ids.must.have.any.be.a.number();
+```
+
+Usually `any` sounds weird though, unless you're doing a `not` assertion, which brings us to...
+
+## Must Have None / Must Not Have Any
+
+```typescript
+names.must.have.none.be.null();
+```
+
+This would be the same thing as
+
+```typescript
+names.must.not.have.any.be.null();
 ```
 
 ## Must Have Only
