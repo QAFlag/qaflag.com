@@ -171,6 +171,11 @@ const sidebars = {
           id: "playwright/find",
           label: "Querying with Find",
         },
+        {
+          type: "doc",
+          id: "playwright/visual",
+          label: "Visaul Comparison",
+        },
       ],
     },
   ],
