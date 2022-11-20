@@ -50,12 +50,10 @@ The goal should not be to teach our Automation Engineers to be able to write com
 
 ## Querying for text
 
-One of the most powerful things (and a best practice) is to search for things with certain text in them. This scans the page just like a user would. We can do this a few different ways. All of these are identical:
+One of the most powerful things (and a best practice) is to search for things with certain text in them. This scans the page just like a user would. We can do this a few different ways. By putting _quotes-inside-the-quotes_, we tell QA Flag to look for the exact string instead of looking for a selector.
 
 ```typescript
 context.find("'Hello World'");
-context.find('"Hello World"');
-context.find(`"Hello World"`);
 ```
 
 This query will look for an element containing _exactly_ the string "Hello World", with any whitespace trimmed. So that means if your element has `"Hello World!"` in it, then it will not match. If you want a more fuzzy match, which searches for the text anywhere within the element:
@@ -127,6 +125,7 @@ Here are the available keywords:
 - table - `<table>`, `role="table"`
 - row - `<tr>`, `role="row"`
 - cell - `<td>`, `role="cell"`
+- fullscreen - Find the element that is currently in fullscreen mode
 
 Examples:
 
@@ -262,6 +261,16 @@ const firstName = await context.find(label("'First Name'"));
 - enabled
 - hidden
 - visible
+- checked
+- readOnly
+- readWrite
+- active
+- inactive
+- focus
+- invalid
+- required
+- optional
+- defaultInput
 
 Examples:
 
@@ -329,6 +338,22 @@ This is the same as the CSS selector:
 context.find("header + ul");
 ```
 
+### Has a child lke this
+
+Select an element that has a matching child node or text.
+
+```typescript
+context.find("fieldset", has('"First Name"'));
+```
+
+### But not this
+
+Select an element that mathces criteria, but does not match this.
+
+```typescript
+context.find(textbox, "*Name*", not("*First Name*"));
+```
+
 ## Position in matched results
 
 We can always filter within our results using result of the search itself:
@@ -347,12 +372,53 @@ const lastImage = context.find("img", last);
 const secondImage = context.find("img", nth(2));
 ```
 
-# Other filters
+## Query by attribute
 
-- and(selector)
-- empty
-- firstChild
-- has(selector)
-- lastChild
-- not(selector)
-- only
+You can use any standard CSS selector for attribute like:
+
+```typescript
+context.find(link, "[target='_blank']");
+```
+
+For the most part using attribute selectors are not a best practice, becasue we want to write more human tests. But there are a few attributes that directly manifest themselves to a user that are perfectly acceptable:
+
+- **title** - Shows as a tooltip to a user
+- **placeholder** - Shows as the empty state text of an input box
+- **alt** - Shows as alternate text, tooltips, or placeholder before an images loads
+
+Slightly less "human" but you can also use:
+
+- **href** - Where a link is going
+- **src** - Path of an image
+
+These can obviously still be utilized with standard CSS selectors, but QA Flag comes with some shorthand for these common ones to make it more concise, easy to read, and it also helps make better names in assertions.
+
+```typescript
+context.find(textbox, "placeholder=Hometown");
+context.find(image, "alt=My Boston Terrier Puppy");
+context.find(link, "title=Back to Homepage");
+```
+
+Any of these can also be surrounded by quotes for exact matches:
+
+```typescript
+context.find(textbox, "placeholder='Favorite College Team'");
+```
+
+Surrounded by `*` for a fuzzy match:
+
+```typescript
+context.find(textbox, "alt=*dog*");
+```
+
+Surrounded by `^...*` for starts with:
+
+```typescript
+context.find(link, "title=^Back*);
+```
+
+Or surrounded by `*...$` for ends with:
+
+```typescript
+context.find(link, "title=*Home$);
+```
