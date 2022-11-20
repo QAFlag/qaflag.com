@@ -173,6 +173,11 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "playwright/form",
+          label: "Using Forms",
+        },
+        {
+          type: "doc",
           id: "playwright/visual",
           label: "Visaul Comparison",
         },
