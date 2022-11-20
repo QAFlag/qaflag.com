@@ -54,27 +54,32 @@ One of the most powerful things (and a best practice) is to search for things wi
 
 ```typescript
 context.find("'Hello World'");
-context.find(text("Hello World"));
-context.find("text='Hello World'");
-context.find(":text-is('Hello World')");
+context.find('"Hello World"');
+context.find(`"Hello World"`);
 ```
 
-All three of those queries will look for an element containing _exactly_ the string "Hello World", with any whitespace trimmed. So that means if your element has `"Hello World!"` in it, then it will not match. If you want a more fuzzy match, any of these will work and are identical:
+This query will look for an element containing _exactly_ the string "Hello World", with any whitespace trimmed. So that means if your element has `"Hello World!"` in it, then it will not match. If you want a more fuzzy match, which searches for the text anywhere within the element:
 
 ```typescript
 context.find("*Hello World*");
-context.find(contains("Hello World"));
-context.find("text=Hello World");
-context.find(":has-text('Hello World')");
 ```
 
-Lastly, you can also use a regular expression if you're feeling saucy.
+This will do a simple "starts with" query:
+
+```typescript
+context.find("^Hello*");
+```
+
+This will do an "ends with":
+
+```typescript
+context.find("*Hello$");
+```
+
+Lastly, you can also use a full-blown regular expression if you're feeling saucy.
 
 ```typescript
 context.find(/hello world/i);
-context.find(matches("/hello world/i"));
-context.find("text=/hello world/i");
-context.find(":text-matches('/hello world/', 'i')");
 ```
 
 While all of the above are identical, the first one of each group is the recommened best practice.
@@ -91,6 +96,8 @@ context.find("=textbox");
 ```
 
 The benefit to the first one is it's more concise and easier on the eyes. The downside is that `textbox` needs to be `import`ed at the top of your test suite. This may not be a big deal, but it may potentially annoy you if you have a dozen or more of them. So it's up to you!
+
+In future examples, we'll use the `context.find(textbox);` example only. Just know you can do either.
 
 In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. If you create custom controls that don't use the semantic tags, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
 
@@ -127,7 +134,7 @@ Examples:
 context.find(textbox, under("'First Name'"));
 context.find("a", within(nav));
 context.find(image, within(header));
-context.find("=main");
+context.find(main);
 ```
 
 ## Proximity Filters
@@ -249,12 +256,6 @@ If you want a more exact search (case sensitive) but still trimming whitespace, 
 const firstName = await context.find(label("'First Name'"));
 ```
 
-Alternately, you can pass true as the second argument.
-
-```typescript
-const firstName = await context.find(label("First Name", true));
-```
-
 ## State of an element
 
 - disabled
@@ -266,12 +267,6 @@ Examples:
 
 ```typescript
 context.find(dropdown, disabled);
-```
-
-If you don't like the extra imports, you can do:
-
-```typescript
-context.find(dropdown, ":disabled");
 ```
 
 ## Relationship to other selectors
@@ -369,11 +364,18 @@ context.find('//img[@src = "foobar.png"]');
 But with `find` we've added some other shorthand options that you'll likely find preferable.
 
 ```typescript
-context.find("img@src=foobar.png");
 context.find('img@src="foobar.png"');
+context.find("img@src=foobar.png");
 ```
 
-All of the above examples are an exact match. In other words, the value of `src` has to be exactly `foobar.png`.
+All of the above examples are an exact match. In other words, the value of `src` has to be exactly `foobar.png`. If you prefer to space them out, feel free to add them for better readability.
+
+```typescript
+context.find('img @ src = "foobar.png"');
+context.find("img @ src=foobar.png");
+context.find("img @ src = foobar.png");
+context.find("img@src = 'foobar.png'");
+```
 
 ### Without the tag
 
@@ -399,85 +401,28 @@ Or you can just search for any element with a certain attribute, regardless of t
 context.find("@contenteditable");
 ```
 
-### Attribute Value Contains (\*=)
+### Attribute Value Contains
 
-Attribute value contains this text. These are all equivalent.
+Attribute value contains this text.
 
 ```typescript
 context.find("img@src=*foobar*");
-context.find("img@src*=foobar");
-context.find("img@src*='foobar'");
 ```
 
-You see with the first example, you can use a standard `=` single equality and then surround your string with `*` wildcards. Or you can use the '\*=` equality, followed by your value. The value can be quoted but doesn't need to be. The behavior does not change.
-
-### Attribute Value Starts With (^=)
+### Attribute Value Starts With
 
 Attribute value starts with this text. These are all equivalent.
 
 ```typescript
-context.find("img@src^=foobar");
+context.find("img@src=^foobar*");
 ```
 
-### Attribute Value Ends With ($=)
+### Attribute Value Ends With
 
 Attribute value ends with this text. These are all equivalent.
 
 ```typescript
-context.find("img@src$=foobar");
-context.find("img@src$='foobar'");
-```
-
-### Attribute Value Contains Word (~=)
-
-This one looks for a word (spaces around it) that matches the value. These are all equivalent.
-
-```typescript
-context.find("input@placeholder~=foobar");
-context.find("input@placeholder~='foobar'");
-```
-
-### The |= selector
-
-This one is a little different. It looks for a word (spaces around it) that matches the value. These are all equivalent.
-
-```typescript
-context.find("input@placeholder~=foobar");
-context.find("input@placeholder~='foobar'");
-```
-
-### Attribute Helpers
-
-You can use the selector string to find attributes, but we've also added a few helper methods if you prefer.
-
-- alt(value)
-- href(value)
-- id(elementId)
-- placeholder(value)
-- src(value)
-- title(value)
-
-Examples:
-
-```typescript
-context.find(image, alt("Some text"));
-context.find(title("some title"));
-context.find(placeholder("First Name"));
-```
-
-If you prefer avoiding the imports, you can use these like this instead:
-
-```typescript
-context.find(image, "alt='Some text'"));
-context.find("title='some title'"));
-context.find("placeholder='First Name'"));
-```
-
-It is not recommended to construct tests using the `id` selector, however, if you do these are equivalent.
-
-```typescript
-context.find(id("myElement"));
-context.find("#myElement");
+context.find("img@src=*foobar$");
 ```
 
 # Other filters
