@@ -83,27 +83,32 @@ While all of the above are identical, the first one of each group is the recomme
 
 We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
 
-In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. Additional or instead of this, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
+In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. If you create custom controls that don't use the semantic tags, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
 
 QA Flag does make some additional efforts to grab these elements based on common CSS frameworks and other practices of how you might name elements, attributes, or classes. However, for best results: stick with the standards of semantic web and accessibility!
 
-More documentation to come...
-
-- banner = Top section of the site with the logo and masthead
-- bold = Large text such as headings, bold, or strong
+- banner = Top section of the site with the logo and masthead or `role="banner"`
+- strong = Large text such as headings, bold, strong, or `role="strong"`
 - button = Elements resembling a button like `<button>`, `<input type="submit">`, `role="button"` or `class="btn"`
-- checkbox = Checkbox elements like `<input type="checkbox">`
-- dialog = Modals and dialog boxes, including native ones and those of popular frameworks
-- dropdown = Dropdown components like the native `<select>`
-- field = Any standard form field with `<input>` or `<select>`, but not buttons of any `type="hidden"`
-- header = A header section of the site, not just the main top-level one (which is the "banner"). This includes the `<header>` tag.
-- heading = A text heading like `<h1>`, `<h2>`, etc.
-- image = Any image type item including `<img>`, `<picture>`, or `<svg>`. This will not grab things with a CSS background image.
-- link = Any type of link with `<a>` but also other link-like elements
+- checkbox = Checkbox elements like `<input type="checkbox">` or `role="checkbox"`
+- dialog = Modals and dialog boxes, including native ones and those of popular frameworks, `<modal>` or `role="dialog"`
+- dropdown = Dropdown components like the native `<select>` or `role="dropdown"`
+- heading = A text heading like `<h1>`, `<h2>`, etc. or `role="heading"`
+- image = Any image type item including `<img>`, `<picture>`, `<svg>`, or `role="img"`. This will not grab things with a CSS background image.
+- link = Any type of link with `<a>` and a href attribute, `role="link"`
 - main = Main section of the site. Includes `<main>` and `role="main"`
 - nav = Main navigation of the site. Includes `<nav>` and `role="navigation"`
-- radio = Radio buttons with `<input type="radio">`
-- textbox = Any `<input>` that allows you to type (text, search, tel, url, etc) in it or a `<textarea>`
+- radio = Radio buttons with `<input type="radio">` or `role="radio"`
+- textbox = Any `<input>` that allows you to type (text, search, tel, url, etc) in it or a `<textarea>`, `role="textbox"`
+- fileInput - `<input type="file">`
+- dateInput - `<input type="date">` and similar date or time selectors
+- colorInput - `<input type="color">`
+- region - `<section>`, `role="region"`
+- form - `<form>`, `role="form"`
+- listItem - `<li>`, `role="listitem"`
+- table - `<table>`, `role="table"`
+- row - `<tr>`, `role="row"`
+- cell - `<td>`, `role="cell"`
 
 Examples:
 
@@ -186,6 +191,44 @@ Optionally, with `near`, we can specify how far away it's allowed to be (in pixe
 
 ```typescript
 context.find(image, near(topLeft, 120));
+```
+
+## ARIA Roles and Labels
+
+### Find by ARIA Role
+
+Search for an element just by role:
+
+```typescript
+const main = context.find(role("main"));
+```
+
+Search by role and associated label, whether that label uses a `<label>` tag, an `aria-label` attribute, or an `aria-labeledby` attribute. This also respects the `for` attribute on a label tag.
+
+You can do this with a search for the label associated with this textbox. The search is case insensitive, searches for partial matches within, and trims leading or trailing whitespace.
+
+```typescript
+const input = context.find(role("textbox", "First Name"));
+```
+
+For fuzzier search using regular expressions:
+
+```typescript
+const input = context.find(role("textbox", /(First|Last) Name/i));
+```
+
+### Find by Label
+
+You can skip the role part and search for label. It will respect the `<label>` tag, an `aria-label` attribute, or an `aria-labeledby` attribute. This also respects the `for` attribute on a label tag. The search is case insensitive, searches for partial matches within, and trims leading or trailing whitespace.
+
+```typescript
+const firstName = await context.find(label("First Name"));
+```
+
+If you want a more exact search (case sensitive) but still trimming whitespace, add the second argument.
+
+```typescript
+const firstName = await context.find(label("First Name", true));
 ```
 
 ## State of an element
@@ -380,11 +423,9 @@ context.find("input@placeholder~='foobar'");
 You can use the selector string to find attributes, but we've also added a few helper methods if you prefer.
 
 - alt(value)
-- ariaLabel(value)
 - href(value)
 - id(elementId)
 - placeholder(value)
-- role(roleName)
 - src(value)
 - title(value)
 
