@@ -72,7 +72,7 @@ await context.find(fileInput, label("Logo")).file("./fixtures/logo.png");
 Select the value from any form control including textboxes, dropdowns, etc.
 
 ```typescript
-const value = await context.find(textbox, "@placeholder=First Name")).value();
+const value = await context.find(textbox, "placeholder='First Name'")).value();
 ```
 
 ### selectedText()
@@ -80,7 +80,7 @@ const value = await context.find(textbox, "@placeholder=First Name")).value();
 Instead of the value, if you want to get the text from the selected option on a dropdown.
 
 ```typescript
-const text = await context.find(dropdown, "@title=Age").selectedText();
+const text = await context.find(dropdown, "title='Age'").selectedText();
 ```
 
 ### selectedIndex()
@@ -88,7 +88,7 @@ const text = await context.find(dropdown, "@title=Age").selectedText();
 Get the zero-based index of the selected element of a dropdown.
 
 ```typescript
-const text = await context.find(dropdown, "@tite=Age").selectedText();
+const text = await context.find(dropdown, "title='Age'").selectedText();
 ```
 
 ## Asserting aginst form values
