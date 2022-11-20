@@ -2,7 +2,7 @@
 
 Using the [locator](/docs/playwright/locator) method is perfectly fine, but we can do better. The `find` method is its cousin and performs the same task; however, it wraps additional querying enhancements that can make writing selectors substantially more intuitive and easier to read.
 
-Everything you learend from the [locator](/docs/playwright/locator) section still works here, because both return a `PlaywrightValue`. And you can pass any selector that you'd use with `locator` to `find` as well.
+Everything you learned from the [locator](/docs/playwright/locator) section still works here, because both return a `PlaywrightValue`. And you can pass any selector that you'd use with `locator` to `find` as well.
 
 These will yield identical results:
 
@@ -81,11 +81,22 @@ While all of the above are identical, the first one of each group is the recomme
 
 ## Type of element
 
-We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user.
+We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user. QA Flag has many common keywords so that you can select elements by the type of control or area of the page.
+
+You can do this one of two ways:
+
+```typescript
+context.find(textbox);
+context.find("=textbox");
+```
+
+The benefit to the first one is it's more concise and easier on the eyes. The downside is that `textbox` needs to be `import`ed at the top of your test suite. This may not be a big deal, but it may potentially annoy you if you have a dozen or more of them. So it's up to you!
 
 In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. If you create custom controls that don't use the semantic tags, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
 
 QA Flag does make some additional efforts to grab these elements based on common CSS frameworks and other practices of how you might name elements, attributes, or classes. However, for best results: stick with the standards of semantic web and accessibility!
+
+Here are the available keywords:
 
 - banner = Top section of the site with the logo and masthead or `role="banner"`
 - strong = Large text such as headings, bold, strong, or `role="strong"`
@@ -116,6 +127,7 @@ Examples:
 context.find(textbox, under("'First Name'"));
 context.find("a", within(nav));
 context.find(image, within(header));
+context.find("=main");
 ```
 
 ## Proximity Filters
@@ -211,6 +223,12 @@ You can do this with a search for the label associated with this textbox. The se
 const input = context.find(role("textbox", "First Name"));
 ```
 
+If you want to do an exact search, put quotes in those quotes! This will require a case sensitive, exact match of the label. However, it will still strip any whitespace around it.
+
+```typescript
+const input = context.find(role("textbox", "'First Name'"));
+```
+
 For fuzzier search using regular expressions:
 
 ```typescript
@@ -225,7 +243,13 @@ You can skip the role part and search for label. It will respect the `<label>` t
 const firstName = await context.find(label("First Name"));
 ```
 
-If you want a more exact search (case sensitive) but still trimming whitespace, add the second argument.
+If you want a more exact search (case sensitive) but still trimming whitespace, surround it by quotes:
+
+```typescript
+const firstName = await context.find(label("'First Name'"));
+```
+
+Alternately, you can pass true as the second argument.
 
 ```typescript
 const firstName = await context.find(label("First Name", true));
@@ -242,6 +266,12 @@ Examples:
 
 ```typescript
 context.find(dropdown, disabled);
+```
+
+If you don't like the extra imports, you can do:
+
+```typescript
+context.find(dropdown, ":disabled");
 ```
 
 ## Relationship to other selectors
@@ -341,8 +371,6 @@ But with `find` we've added some other shorthand options that you'll likely find
 ```typescript
 context.find("img@src=foobar.png");
 context.find('img@src="foobar.png"');
-context.find("img@src==foobar.png");
-context.find("img@src=='foobar.png'");
 ```
 
 All of the above examples are an exact match. In other words, the value of `src` has to be exactly `foobar.png`.
@@ -434,10 +462,16 @@ Examples:
 ```typescript
 context.find(image, alt("Some text"));
 context.find(title("some title"));
-context.find(role("button"));
+context.find(placeholder("First Name"));
 ```
 
-There is generally no reason to use this other than the string selector, unless you think it reads better. However, the `role` method does constrain the possible role values to only legal ones as defined by the specifications.
+If you prefer avoiding the imports, you can use these like this instead:
+
+```typescript
+context.find(image, "alt='Some text'"));
+context.find("title='some title'"));
+context.find("placeholder='First Name'"));
+```
 
 It is not recommended to construct tests using the `id` selector, however, if you do these are equivalent.
 
