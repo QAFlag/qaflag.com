@@ -422,3 +422,9 @@ Or surrounded by `*...$` for ends with:
 ```typescript
 context.find(link, "title=*Home$");
 ```
+
+There is an alternate syntax for any of these, if you prefer working with functions rather than these string selectors. Otherwise, it works exactly the same including the options outlined above for the value:
+
+```typescript
+context.find(image, alt("My Boston Terrier Puppy"));
+```
