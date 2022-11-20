@@ -178,6 +178,16 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "playwright/keyboard",
+          label: "Keyboard Interactions",
+        },
+        {
+          type: "doc",
+          id: "playwright/mouse",
+          label: "Mouse Interactions",
+        },
+        {
+          type: "doc",
           id: "playwright/visual",
           label: "Visaul Comparison",
         },
