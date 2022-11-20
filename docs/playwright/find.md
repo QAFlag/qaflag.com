@@ -399,13 +399,13 @@ context.find(image, "alt=My Boston Terrier Puppy");
 context.find(link, "title=Back to Homepage");
 ```
 
-Any of these can also be surrounded by quotes for exact matches:
+The above examples require an exact match for the attribute value. This behaves idenitically to surrounding them in quotes:
 
 ```typescript
 context.find(textbox, "placeholder='Favorite College Team'");
 ```
 
-Surrounded by `*` for a fuzzy match:
+If you want to do a fuzzy "contains" match, surrounded by wildcards `*`:
 
 ```typescript
 context.find(textbox, "alt=*dog*");
@@ -414,11 +414,11 @@ context.find(textbox, "alt=*dog*");
 Surrounded by `^...*` for starts with:
 
 ```typescript
-context.find(link, "title=^Back*);
+context.find(link, "title=^Back*");
 ```
 
 Or surrounded by `*...$` for ends with:
 
 ```typescript
-context.find(link, "title=*Home$);
+context.find(link, "title=*Home$");
 ```
