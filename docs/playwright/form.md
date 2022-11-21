@@ -11,7 +11,7 @@ Note: In the following examples the `context.find(...)` portion can be whatever 
 Using fill will replace any existing content within a textbox, so you do not need to separately clear it.
 
 ```typescript
-await context.find(textbox, label("Title")).form.fill("It's so easy!");
+await element.form.fill("It's so easy!");
 ```
 
 ### Clear Value
@@ -19,7 +19,7 @@ await context.find(textbox, label("Title")).form.fill("It's so easy!");
 To remove all input from any form field.
 
 ```typescript
-await context.find(textbox near("Title")).form.clear();
+await element.form.clear();
 ```
 
 ### Check or Uncheck
@@ -27,42 +27,45 @@ await context.find(textbox near("Title")).form.clear();
 To check a checkbox:
 
 ```typescript
-await context.find(checkbox, leftOf("I agree")).check();
+await element.check();
 ```
 
 To uncheck a checkbox:
 
 ```typescript
-await context.find(checkbox, leftOf("Sign me up for email list")).check(false);
+await element.check(false);
 ```
 
 ### Select Option from Dropdown
 
-To choose a dropdown option by its text, you can do either of the following:
+To choose a dropdown option by its text:
 
 ```typescript
-await context.find(label("State")).select("'Florida'");
-await context.find(label("State")).select({ label: "Florida" });
+await element.chooseOption("'Florida'");
 ```
 
-To choose a dropdown option by its value, you can do either of the following:
+To choose a dropdown option by its value:
 
 ```typescript
-await context.find(label("State")).select("FL");
-await context.find(label("State")).select({ value: "FL" });
+await element.chooseOption("FL");
 ```
 
-To choose a dropdown by its 0-based index in the dropdown list, you can do either of the following:
+To choose a dropdown by its 0-based index in the dropdown list:
 
 ```typescript
-await context.find(dropdown, by("State")).select(7);
-await context.find(dropdown, by("State")).select({ index: 7 });
+await element.chooseOption(7);
 ```
 
 ### Choose a File
 
 ```typescript
-await context.find(fileInput, label("Logo")).file("./fixtures/logo.png");
+await element.chooseFile("./fixtures/logo.png");
+```
+
+### Choose a Date
+
+```typescript
+await element).chooseDate("2002-03-26");
 ```
 
 ## Getting values from form inputs
@@ -72,7 +75,7 @@ await context.find(fileInput, label("Logo")).file("./fixtures/logo.png");
 Select the value from any form control including textboxes, dropdowns, etc.
 
 ```typescript
-const value = await context.find(textbox, "placeholder='First Name'")).value();
+const value = element.value();
 ```
 
 ### selectedText()
@@ -80,7 +83,7 @@ const value = await context.find(textbox, "placeholder='First Name'")).value();
 Instead of the value, if you want to get the text from the selected option on a dropdown.
 
 ```typescript
-const text = await context.find(dropdown, "title='Age'").selectedText();
+const text = element.selectedText();
 ```
 
 ### selectedIndex()
@@ -88,7 +91,7 @@ const text = await context.find(dropdown, "title='Age'").selectedText();
 Get the zero-based index of the selected element of a dropdown.
 
 ```typescript
-const text = await context.find(dropdown, "title='Age'").selectedText();
+const text = element.selectedText();
 ```
 
 ## Asserting aginst form values
@@ -98,7 +101,7 @@ const text = await context.find(dropdown, "title='Age'").selectedText();
 Assert against the value of any form control.
 
 ```typescript
-await context.find(label("First Name")).must.have.value("Jason");
+await element.must.have.value("Jason");
 ```
 
 ### Must Have Selected Text
@@ -106,35 +109,51 @@ await context.find(label("First Name")).must.have.value("Jason");
 Instead of the value, you want to assert the text of the selected option of a dropdown.
 
 ```typescript
-await context.find(label("State")).must.have.selectedText("Florida");
+await element.must.have.selectedText("Florida");
 ```
 
 ### Must Have Focus
 
 ```typescript
-await context.find(dateInput, near("Birthday")).must.have.focus();
+await element.must.have.focus();
 ```
 
 ### Must Be Checked
 
 ```typescript
-await context.find(checkbox, by("I agree")).must.be.checked();
+await element.must.be.checked();
 ```
 
 ### Must Be Unchecked
 
 ```typescript
-await context.find(checkbox, by("mailing list")).must.be.unchecked();
+await element.must.be.unchecked();
 ```
 
 ### Must Be Disabled
 
 ```typescript
-await context.find(label("Favorite Color")).must.be.disabled();
+await element.must.be.disabled();
 ```
 
 ### Must Be Enabled
 
 ```typescript
-await context.find(label("Favorite Color")).must.be.enabled();
+await element.must.be.enabled();
+```
+
+### Must Be Valid
+
+The value of this form input must be considered valid based on any criteria like min or max length, patterns, required, etc.
+
+```typescript
+await element.must.be.valid();
+```
+
+### Must Be Required
+
+The form input must be marked required
+
+```typescript
+await element.must.be.required();
 ```

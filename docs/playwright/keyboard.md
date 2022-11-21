@@ -47,7 +47,7 @@ await context.find(role("main")).keyboard.up("a");
 Control/Command+A
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.selectAll();
+await element.keyboard.selectAll();
 ```
 
 ## Copy
@@ -55,7 +55,7 @@ await context.find(role("textbox", "City")).keyboard.selectAll();
 Control/Command+C
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.copy();
+await element.keyboard.copy();
 ```
 
 ## Cut
@@ -63,7 +63,7 @@ await context.find(role("textbox", "City")).keyboard.copy();
 Control/Command+X
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.cut();
+await element.keyboard.cut();
 ```
 
 ## Paste
@@ -71,61 +71,61 @@ await context.find(role("textbox", "City")).keyboard.cut();
 Control/Command+V
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.paste();
+await element.keyboard.paste();
 ```
 
 ## Backspace
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.backspace();
+await element.keyboard.backspace();
 ```
 
 ## Enter
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.enter();
+await element.keyboard.enter();
 ```
 
 ## Delete
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.delete();
+await element.keyboard.delete();
 ```
 
 ## Escape
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.escape();
+await element.keyboard.escape();
 ```
 
 ## Tab
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.tab();
+await element.keyboard.tab();
 ```
 
 ## Arrow Up
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.arrowUp();
+await element.keyboard.arrowUp();
 ```
 
 ## Arrow Down
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.arrowDown();
+await element.keyboard.arrowDown();
 ```
 
 ## Arrow Left
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.arrowLeft());
+await element.keyboard.arrowLeft());
 ```
 
 ## Arrow Right
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.arrowRight();
+await element.keyboard.arrowRight();
 ```
 
 ## Press Special Keys
@@ -133,5 +133,5 @@ await context.find(role("textbox", "City")).keyboard.arrowRight();
 We have some easy methods for common ones like `backspace()` but this method gives you type-safety and intellisense to know what strings are valid special keys. So this can do anything like PageUp, Home, End, F1-F12, CapsLock, etc.
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.pressSpecial("PageDown");
+await element.keyboard.pressSpecial("PageDown");
 ```
