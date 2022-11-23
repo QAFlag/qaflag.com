@@ -37,3 +37,9 @@ For any of the above commands you can add `--build` to have it rebuild the tests
 ```bash
 qaflag run --build --all
 ```
+
+To change the base URL from what is in the `qaflag.json` default:
+
+```bash
+qaflag run --base https://staging.some.domain
+```
