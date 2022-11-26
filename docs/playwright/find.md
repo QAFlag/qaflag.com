@@ -5,14 +5,14 @@ The `find` method of`PlaywrightContext` is your primary vechicle for querying el
 Here is a basic example, using a CSS selector to pick a text box named password:
 
 ```typescript
-const passwordInput = context.locator('input[name="password"]');
+const passwordInput = context.find('input[name="password"]');
 ```
 
 Supported selectors include:
 
-- [Simple Text](https://playwright.dev/docs/selectors#text-selector) - `context.locator('"Hello World"')`
-- [CSS](https://playwright.dev/docs/selectors#css-selector) - `context.locator('h1.main')`
-- [XPath](https://playwright.dev/docs/selectors#xpath-selectors) - `context.locator('xpath=//button')`
+- [Simple Text](https://playwright.dev/docs/selectors#text-selector) - `context.find('"Hello World"')`
+- [CSS](https://playwright.dev/docs/selectors#css-selector) - `context.find('h1.main')`
+- [XPath](https://playwright.dev/docs/selectors#xpath-selectors) - `context.find('xpath=//button')`
 - [React](https://playwright.dev/docs/selectors#react-selectors)
 - [Vue](https://playwright.dev/docs/selectors#vue-selectors)
 
@@ -26,6 +26,20 @@ const submitButton = context.find('button[type="submit"]');
 const listItem = context.find("ui li");
 ```
 
+You can also chain additional arguments within a `find` query, which are considered sub-queries. For example:
+
+```typescript
+const checkedInputs = context.find("input", ":checked");
+```
+
+This isn't actually different than simply using it as a single CSS selector like this:
+
+```typescript
+const checkedInputs = context.find("input:checked");
+```
+
+However, the power of this chaining will become evident as you read further sections of this documentation.
+
 ## Naming the Element
 
 The `PlaywrightValue` returned by `find` not only contains the internal selector, but also has a name that will be used in any assertions against it. QA Flag will do its best to automatically give it a decent name. However, sometimes you may want to explicitly assign it a human-readable name so your logs make more sense.
@@ -34,9 +48,7 @@ For this we'll use the `as` method:
 
 ```typescript
 const logo = context.find("img.logo").as("Site Logo");
-const submitButton = context
-  .locator('button[type="submit"]')
-  .as("Search Button");
+const submitButton = context.find('button[type="submit"]').as("Search Button");
 ```
 
 ## Matching multiple elements
@@ -47,7 +59,7 @@ Let's talk about ways to do that. We'll use this example:
 
 ```typescript
 // This may return multiple values that matched the <li> tag
-const listItems = context.locator("li");
+const listItems = context.find("li");
 // The click will happen against the first match
 await listItems.mouse.click();
 ```
@@ -65,13 +77,13 @@ const fifthItem = listItems.nth(4); // Zero-based
 This does not need to be awaited because it is just returning another locator. You don't necessarily need to save them to their own `const`. You can simply assert against them directly like this.
 
 ```typescript
-await listItems.first.must.be.visible();
+await context.find("li").first.must.be.visible();
 ```
 
 Or perform an action against the last one.
 
 ```typescript
-await listItems.last.mouse.click();
+await context.find("li").last.mouse.click();
 ```
 
 ### Count the matches
