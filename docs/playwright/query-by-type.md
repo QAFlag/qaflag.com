@@ -44,26 +44,3 @@ context.find("=link", within(nav));
 context.find("=image", within(header));
 context.find("=main");
 ```
-
-## State of an element
-
-- disabled
-- enabled
-- hidden
-- visible
-- checked
-- readOnly
-- readWrite
-- active
-- inactive
-- focus
-- invalid
-- required
-- optional
-- defaultInput
-
-Examples:
-
-```typescript
-context.find("=dropdown", ":disabled");
-```

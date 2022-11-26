@@ -200,6 +200,11 @@ const sidebars = {
               id: "playwright/query-by-relationship",
               label: "Querying by Relationship",
             },
+            {
+              type: "doc",
+              id: "playwright/query-by-state",
+              label: "Querying by State",
+            },
           ],
         },
         {
