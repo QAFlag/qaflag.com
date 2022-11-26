@@ -1,8 +1,6 @@
 # Interacting with Forms
 
-Use the `form` property on any selected element to handle form input.
-
-Note: In the following examples the `context.find(...)` portion can be whatever selector you nee to locate your form field.
+Once you have queried the element you want to interact with, use the `form` property on any selected element to handle form input.
 
 ## Filing out a form
 

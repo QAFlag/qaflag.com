@@ -173,6 +173,16 @@ const sidebars = {
         },
         {
           type: "doc",
+          id: "playwright/role",
+          label: "Querying by ARIA Role/Label",
+        },
+        {
+          type: "doc",
+          id: "playwright/attribute",
+          label: "Querying by Attribute",
+        },
+        {
+          type: "doc",
           id: "playwright/form",
           label: "Using Forms",
         },

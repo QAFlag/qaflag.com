@@ -86,16 +86,9 @@ While all of the above are identical, the first one of each group is the recomme
 
 We want to break the habit of having to use specific HTML tags or selectors to query for a specific element. Instead, we want to describe how the element appears to a user. QA Flag has many common keywords so that you can select elements by the type of control or area of the page.
 
-You can do this one of two ways:
-
 ```typescript
-context.find(textbox);
 context.find("=textbox");
 ```
-
-The benefit to the first one is it's more concise and easier on the eyes. The downside is that `textbox` needs to be `import`ed at the top of your test suite. This may not be a big deal, but it may potentially annoy you if you have a dozen or more of them. So it's up to you!
-
-In future examples, we'll use the `context.find(textbox);` example only. Just know you can do either.
 
 In order for this type of element selection to work, you should focus on creating semantic code. Use the proper HTML tags for the proper things such as sections on your site or interaction elements. If you create custom controls that don't use the semantic tags, you can use `role` attributes. These are best practices anyway for creating an accessible web application. So do it!
 
@@ -130,10 +123,10 @@ Here are the available keywords:
 Examples:
 
 ```typescript
-context.find(textbox, under("'First Name'"));
-context.find("a", within(nav));
-context.find(image, within(header));
-context.find(main);
+context.find("=textbox", under("'First Name'"));
+context.find("=link", within(nav));
+context.find("=image", within(header));
+context.find("=main");
 ```
 
 ## Proximity Filters
@@ -165,25 +158,25 @@ These directional helpers will grab all matching elements in that direction, wit
 #### above(selector)
 
 ```typescript
-context.find(image, above("'My Picture Caption"));
+context.find("=image", above("'My Picture Caption"));
 ```
 
 #### below(selector)
 
 ```typescript
-context.find(textbox, below("'Email Address'"));
+context.find("=textbox", below("'Email Address'"));
 ```
 
 #### leftOf(selector)
 
 ```typescript
-context.find(image, leftOf("a.logo"));
+context.find("=image", leftOf("a.logo"));
 ```
 
 #### rightOf(selector)
 
 ```typescript
-context.find(link, leftOf("article"));
+context.find("=link", leftOf("article"));
 ```
 
 ### Location on the Page
@@ -202,57 +195,13 @@ Pair these with a proximity helper to determine where on the page to look for th
 For example:
 
 ```typescript
-context.find(image, near(topLeft));
+context.find("=image", near(topLeft));
 ```
 
 Optionally, with `near`, we can specify how far away it's allowed to be (in pixels). The default is 50.
 
 ```typescript
-context.find(image, near(topLeft, 120));
-```
-
-## ARIA Roles and Labels
-
-### Find by ARIA Role
-
-Search for an element just by role:
-
-```typescript
-const main = context.find(role("main"));
-```
-
-Search by role and associated label, whether that label uses a `<label>` tag, an `aria-label` attribute, or an `aria-labeledby` attribute. This also respects the `for` attribute on a label tag.
-
-You can do this with a search for the label associated with this textbox. The search is case insensitive, searches for partial matches within, and trims leading or trailing whitespace.
-
-```typescript
-const input = context.find(role("textbox", "First Name"));
-```
-
-If you want to do an exact search, put quotes in those quotes! This will require a case sensitive, exact match of the label. However, it will still strip any whitespace around it.
-
-```typescript
-const input = context.find(role("textbox", "'First Name'"));
-```
-
-For fuzzier search using regular expressions:
-
-```typescript
-const input = context.find(role("textbox", /(First|Last) Name/i));
-```
-
-### Find by Label
-
-You can skip the role part and search for label. It will respect the `<label>` tag, an `aria-label` attribute, or an `aria-labeledby` attribute. This also respects the `for` attribute on a label tag. The search is case insensitive, searches for partial matches within, and trims leading or trailing whitespace.
-
-```typescript
-const firstName = await context.find(label("First Name"));
-```
-
-If you want a more exact search (case sensitive) but still trimming whitespace, surround it by quotes:
-
-```typescript
-const firstName = await context.find(label("'First Name'"));
+context.find("=image", near(topLeft, 120));
 ```
 
 ## State of an element
@@ -291,7 +240,7 @@ context.find("tr.selected", within("table.results"));
 You can also use some of the QA Flag sugar to try to automatically identify a certain part of the page, like the navigation bar.
 
 ```typescript
-context.find(link, ".selected", within(nav));
+context.find("=link", ".selected", within(nav));
 ```
 
 ### parent(selector)
@@ -351,7 +300,7 @@ context.find("fieldset", has('"First Name"'));
 Select an element that mathces criteria, but does not match this.
 
 ```typescript
-context.find(textbox, "*Name*", not("*First Name*"));
+context.find("=textbox", "*Name*", not("*First Name*"));
 ```
 
 ## Position in matched results
@@ -370,61 +319,4 @@ But, if you prefer, you can also do it inline with the selector like this:
 const firstImage = context.find("img", first);
 const lastImage = context.find("img", last);
 const secondImage = context.find("img", nth(2));
-```
-
-## Query by attribute
-
-You can use any standard CSS selector for attribute like:
-
-```typescript
-context.find(link, "[target='_blank']");
-```
-
-For the most part using attribute selectors are not a best practice, becasue we want to write more human tests. But there are a few attributes that directly manifest themselves to a user that are perfectly acceptable:
-
-- **title** - Shows as a tooltip to a user
-- **placeholder** - Shows as the empty state text of an input box
-- **alt** - Shows as alternate text, tooltips, or placeholder before an images loads
-
-Slightly less "human" but you can also use:
-
-- **href** - Where a link is going
-- **src** - Path of an image
-
-These can obviously still be utilized with standard CSS selectors, but QA Flag comes with some shorthand for these common ones to make it more concise, easy to read, and it also helps make better names in assertions.
-
-```typescript
-context.find(textbox, "placeholder=Hometown");
-context.find(image, "alt=My Boston Terrier Puppy");
-context.find(link, "title=Back to Homepage");
-```
-
-The above examples require an exact match for the attribute value. This behaves idenitically to surrounding them in quotes:
-
-```typescript
-context.find(textbox, "placeholder='Favorite College Team'");
-```
-
-If you want to do a fuzzy "contains" match, surrounded by wildcards `*`:
-
-```typescript
-context.find(textbox, "alt=*dog*");
-```
-
-Surrounded by `^...*` for starts with:
-
-```typescript
-context.find(link, "title=^Back*");
-```
-
-Or surrounded by `*...$` for ends with:
-
-```typescript
-context.find(link, "title=*Home$");
-```
-
-There is an alternate syntax for any of these, if you prefer working with functions rather than these string selectors. Otherwise, it works exactly the same including the options outlined above for the value:
-
-```typescript
-context.find(image, alt("My Boston Terrier Puppy"));
 ```

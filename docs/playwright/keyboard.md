@@ -1,9 +1,11 @@
 # Keyboard Interactions
 
+Once you have queried the element you want to interact with, use the `keyboard` namespace to type within it.
+
 ## Type a string
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.type("Orlando");
+await city.keyboard.type("Orlando");
 ```
 
 ## Type a string, but mask the output
@@ -11,9 +13,7 @@ await context.find(role("textbox", "City")).keyboard.type("Orlando");
 This is useful if you don't want a password to show up in the test logs.
 
 ```typescript
-await context
-  .find(role("textbox", "Password"))
-  .keyboard.typeMasked("#ydlk42nk!lk3");
+await password.keyboard.typeMasked("#ydlk42nk!lk3");
 ```
 
 # Press a key
@@ -21,13 +21,13 @@ await context
 Press the key down and then let it up, like a user normally would when typing.
 
 ```typescript
-await context.find(role("textbox", "City")).keyboard.press("O");
+await city.keyboard.press("O");
 ```
 
 If you want to press a modifer key (like shift or command) together with your key you can do so like this:
 
 ```typescript
-await context.find(role("main")).keyboard.press(["Meta", "K"]);
+await element.keyboard.press(["Meta", "K"]);
 ```
 
 The "Meta" keyword here matches the appropriate command key on both Windows and Mac.
@@ -37,9 +37,9 @@ The "Meta" keyword here matches the appropriate command key on both Windows and 
 The same syntax as `press` but `down` holds the key down continally. It will continue to be pressed until you call `up`.
 
 ```typescript
-await context.find(role("main")).keyboard.down("a");
+await element.keyboard.down("a");
 await sleep(1000);
-await context.find(role("main")).keyboard.up("a");
+await element.keyboard.up("a");
 ```
 
 ## Select All
