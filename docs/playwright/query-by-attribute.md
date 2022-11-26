@@ -6,7 +6,7 @@ You can use any standard CSS selector for attribute like:
 context.find("=link", "[target='_blank']");
 ```
 
-For the most part using attribute selectors are not a best practice, becasue we want to write more human tests. But there are a few attributes that directly manifest themselves to a user that are perfectly acceptable:
+For the most part using attribute selectors are not a best practice, because we want to write more human tests. But there are a few attributes that directly manifest themselves to a user that are perfectly acceptable:
 
 - **title** - Shows as a tooltip to a user
 - **placeholder** - Shows as the empty state text of an input box

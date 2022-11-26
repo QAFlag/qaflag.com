@@ -162,24 +162,50 @@ const sidebars = {
           label: "Testing with Playwright",
         },
         {
-          type: "doc",
-          id: "playwright/locator",
-          label: "Querying with Locator",
-        },
-        {
-          type: "doc",
-          id: "playwright/find",
-          label: "Querying with Find",
-        },
-        {
-          type: "doc",
-          id: "playwright/role",
-          label: "Querying by ARIA Role/Label",
-        },
-        {
-          type: "doc",
-          id: "playwright/attribute",
-          label: "Querying by Attribute",
+          type: "category",
+          label: "Query for Elements",
+          items: [
+            {
+              type: "doc",
+              id: "playwright/locator",
+              label: "Querying with Locator",
+            },
+            {
+              type: "doc",
+              id: "playwright/find",
+              label: "Querying with Find",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-text",
+              label: "Querying by Text Content",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-type",
+              label: "Querying by Type of Element",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-proximity",
+              label: "Querying by Proximity",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-role",
+              label: "Querying by ARIA Role/Label",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-attribute",
+              label: "Querying by Attribute",
+            },
+            {
+              type: "doc",
+              id: "playwright/query-by-relationship",
+              label: "Querying by Relationship",
+            },
+          ],
         },
         {
           type: "doc",
