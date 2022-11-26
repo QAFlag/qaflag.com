@@ -167,11 +167,6 @@ const sidebars = {
           items: [
             {
               type: "doc",
-              id: "playwright/locator",
-              label: "Querying with Locator",
-            },
-            {
-              type: "doc",
               id: "playwright/find",
               label: "Querying with Find",
             },
